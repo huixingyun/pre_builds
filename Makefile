@@ -8,8 +8,8 @@ BUILD_SCRIPT        := build_script.py
 # Read PYTHON_VERSION and CUDA_VERSION from config for tagging image uniquely
 # Use python to parse yaml safely, requires PyYAML installed on host OR use simpler grep/sed
 # Using simple grep/sed here for less host dependency:
-PYTHON_VERSION      := $(shell grep 'python_version:' $(CONFIG_FILE) | head -n 1 | sed 's/.*: "\(.*\)"/\1/')
-CUDA_VERSION        := $(shell grep 'cuda_version:' $(CONFIG_FILE) | head -n 1 | sed 's/.*: "\(.*\)"/\1/')
+PYTHON_VERSION      := $(shell grep 'python_version:' $(CONFIG_FILE) | head -n 1 | sed 's/.*: *"\([^"]*\).*/\1/')
+CUDA_VERSION        := $(shell grep 'cuda_version:' $(CONFIG_FILE) | head -n 1 | sed 's/.*: *"\([^"]*\).*/\1/')
 BUILDER_IMAGE_TAG   := wheel-builder:py$(PYTHON_VERSION)-cuda$(CUDA_VERSION)
 
 # Read output dir from config for mounting

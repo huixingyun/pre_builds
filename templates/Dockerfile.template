@@ -18,5 +18,8 @@ WORKDIR /workspace
 COPY config.yaml .
 COPY build_script.py .
 
+ENV CUDA_HOME=/usr/local/cuda
+
 # Define the entrypoint for the build script
-ENTRYPOINT ["python{PYTHON_VERSION_MAJOR_MINOR}", "/workspace/build_script.py", "--config", "/workspace/config.yaml"] 
+ENTRYPOINT ["python{PYTHON_VERSION_MAJOR_MINOR}"] 
+CMD ["/workspace/build_script.py", "--config", "/workspace/config.yaml"]

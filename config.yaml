@@ -1,5 +1,5 @@
 # Build output directory (relative to Makefile location)
-output_dir_host: ./output/wheelhouse
+output_dir_host: output/wheelhouse
 
 # Target environment for this build run
 build_target:
