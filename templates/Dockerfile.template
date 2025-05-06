@@ -1,0 +1,22 @@
+# Generated Dockerfile - DO NOT EDIT MANUALLY
+# Base image selected based on config.yaml
+FROM {BASE_IMAGE}
+
+# Install system dependencies defined in config.yaml
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    {APT_PACKAGES} \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python build tools and dependencies defined in config.yaml
+RUN python{PYTHON_VERSION_MAJOR_MINOR} -m pip install --no-cache-dir --upgrade pip && \
+    python{PYTHON_VERSION_MAJOR_MINOR} -m pip install --no-cache-dir \
+    {PIP_PACKAGES}
+
+# Create workspace and copy necessary scripts/configs
+WORKDIR /workspace
+COPY config.yaml .
+COPY build_script.py .
+
+# Define the entrypoint for the build script
+ENTRYPOINT ["python{PYTHON_VERSION_MAJOR_MINOR}", "/workspace/build_script.py", "--config", "/workspace/config.yaml"] 
