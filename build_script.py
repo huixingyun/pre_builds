@@ -197,7 +197,6 @@ def main():
                 "pip",
                 "wheel",
                 ".",
-                "--no-deps",  # Avoid bundling dependencies
                 "-w",
                 project_wheel_output_dir,  # Output directory
             ]
