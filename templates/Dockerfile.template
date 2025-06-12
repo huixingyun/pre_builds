@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python build tools and dependencies defined in config.yaml
-RUN python{PYTHON_VERSION_MAJOR_MINOR} -m pip install --no-cache-dir --upgrade pip && \
-    python{PYTHON_VERSION_MAJOR_MINOR} -m pip install --no-cache-dir \
+RUN python -m pip install --no-cache-dir --upgrade pip && \
+    python -m pip install --no-cache-dir \
     {PIP_PACKAGES}
 
 # Create workspace and copy necessary scripts/configs
@@ -20,6 +20,4 @@ COPY build_script.py .
 
 ENV CUDA_HOME=/usr/local/cuda
 
-# Define the entrypoint for the build script
-ENTRYPOINT ["python{PYTHON_VERSION_MAJOR_MINOR}"] 
 CMD ["/workspace/build_script.py", "--config", "/workspace/config.yaml"]

@@ -26,9 +26,7 @@ all: build
 build: run_build
 
 # Generate the Dockerfile
-generate_dockerfile: $(DOCKERFILE_GENERATED)
-
-$(DOCKERFILE_GENERATED): $(GENERATE_SCRIPT) $(CONFIG_FILE) $(DOCKERFILE_TEMPLATE)
+generate_dockerfile: $(GENERATE_SCRIPT) $(CONFIG_FILE) $(DOCKERFILE_TEMPLATE)
 	@echo "--> Generating Dockerfile for Python $(PYTHON_VERSION), CUDA $(CUDA_VERSION)..."
 	python $(GENERATE_SCRIPT) --config $(CONFIG_FILE) --template $(DOCKERFILE_TEMPLATE) --output $(DOCKERFILE_GENERATED)
 
