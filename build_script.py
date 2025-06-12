@@ -126,7 +126,11 @@ def main():
         no_deps = project.get("no_deps", False)
         build_command_override = project.get("build_command")
         project_deps = project.get("dependencies", [])
+        system_deps = project.get("system_dependencies", [])  # System packages
         build_env = project.get("build_env", {})  # Get build environment variables
+        force_no_isolation = project.get(
+            "force_no_isolation", False
+        )  # Force no isolation
 
         print(f"\n{'='*20} Processing project: {name} {'='*20}")
         project_build_dir = os.path.join(build_root, name)
@@ -137,6 +141,35 @@ def main():
             print(f"Build environment variables for {name}:")
             for key, value in build_env.items():
                 print(f"  {key}={value}")
+
+        # Install system dependencies if specified
+        if system_deps:
+            print(f"Installing system dependencies for {name}: {system_deps}")
+            # Detect package manager and install system dependencies
+            try:
+                if shutil.which("apt-get"):  # Debian/Ubuntu
+                    apt_cmd = [
+                        "apt-get",
+                        "update",
+                        "&&",
+                        "apt-get",
+                        "install",
+                        "-y",
+                    ] + system_deps
+                    # Run as shell command because of &&
+                    subprocess.run(" ".join(apt_cmd), shell=True, check=True)
+                elif shutil.which("yum"):  # CentOS/RHEL
+                    yum_cmd = ["yum", "install", "-y"] + system_deps
+                    run_command(yum_cmd)
+                elif shutil.which("apk"):  # Alpine
+                    apk_cmd = ["apk", "add"] + system_deps
+                    run_command(apk_cmd)
+                else:
+                    print(
+                        f"Warning: Could not detect package manager to install system dependencies: {system_deps}"
+                    )
+            except subprocess.CalledProcessError as e:
+                print(f"Warning: Failed to install system dependencies: {e}")
 
         # Clean up previous attempt if any
         if os.path.exists(project_build_dir):
@@ -200,7 +233,7 @@ def main():
                 "--outdir",
                 project_wheel_output_dir,  # Output directory
             ]
-            if no_deps:
+            if no_deps or force_no_isolation:
                 build_cmd += ["--no-isolation"]
             try:
                 run_command(build_cmd, cwd=project_build_dir, env=build_env)

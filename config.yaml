@@ -14,12 +14,13 @@ projects:
     # https://github.com/IDEA-Research/GroundingDINO.git
     repo_url: https://github.com/kenshi84/GroundingDINO.git
     repo_ref: main # Branch, tag, or commit hash (optional, defaults to clone default branch)
-    no_deps: true
+    force_no_isolation: true
     # build_command: "python setup.py bdist_wheel --custom-flag" # Optional custom build command
 
   - name: llama-cpp-python
     repo_url: https://github.com/abetlen/llama-cpp-python.git
     repo_ref: v0.3.9
+    force_no_isolation: true
     build_env:
       CMAKE_ARGS: -DGGML_CUDA_FORCE_MMQ=ON -DGGML_CUDA=on -DCMAKE_CUDA_ARCHITECTURES=all
 
