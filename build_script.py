@@ -123,6 +123,7 @@ def main():
         name = project["name"]
         repo_url = project["repo_url"]
         repo_ref = project.get("repo_ref")  # Optional
+        no_deps = project.get("no_deps", False)
         build_command_override = project.get("build_command")
         project_deps = project.get("dependencies", [])
         build_env = project.get("build_env", {})  # Get build environment variables
@@ -197,6 +198,7 @@ def main():
                 "pip",
                 "wheel",
                 ".",
+                "--no-deps" if no_deps else "",
                 "-w",
                 project_wheel_output_dir,  # Output directory
             ]

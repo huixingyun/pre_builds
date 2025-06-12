@@ -14,6 +14,7 @@ projects:
     # https://github.com/IDEA-Research/GroundingDINO.git
     repo_url: https://github.com/kenshi84/GroundingDINO.git
     repo_ref: main # Branch, tag, or commit hash (optional, defaults to clone default branch)
+    no_deps: true
     # build_command: "python setup.py bdist_wheel --custom-flag" # Optional custom build command
 
   - name: llama-cpp-python
