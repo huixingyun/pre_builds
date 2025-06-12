@@ -198,10 +198,13 @@ def main():
                 "pip",
                 "wheel",
                 ".",
-                "--no-deps" if no_deps else "",
+            ]
+            if no_deps:
+                build_cmd.append("--no-deps")
+            build_cmd.append(
                 "-w",
                 project_wheel_output_dir,  # Output directory
-            ]
+            )
             try:
                 run_command(build_cmd, cwd=project_build_dir, env=build_env)
                 found_wheels = [
