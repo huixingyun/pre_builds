@@ -4,8 +4,8 @@ output_dir_host: output/wheelhouse
 # Target environment for this build run
 build_target:
   python_version: "3.11" # Target Python version (e.g., 3.8, 3.9, 3.10)
-  cuda_version: "12.4" # Target CUDA version (e.g., 11.7, 11.8, 12.1)
-  pytorch_version: "2.6.0" # Target PyTorch version (used to select base image)
+  cuda_version: "12.8" # Target CUDA version (e.g., 11.7, 11.8, 12.1)
+  pytorch_version: "2.7.0" # Target PyTorch version (used to select base image)
   # platform: "linux_x86_64" # Platform is usually detected inside the container
 
 # List of projects to build
@@ -31,6 +31,8 @@ pytorch_base_images:
     "12.1": "pytorch/pytorch:2.1.0-cuda12.1-cudnn8-devel"
   "2.6.0":
     "12.4": "pytorch/pytorch:2.6.0-cuda12.4-cudnn9-devel"
+  "2.7.0":
+    "12.8": "pytorch/pytorch:2.7.0-cuda12.8-cudnn9-devel"
   # Add more mappings as needed
 
 # Additional packages to install in the Docker image via apt
