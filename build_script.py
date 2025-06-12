@@ -200,11 +200,11 @@ def main():
                 ".",
             ]
             if no_deps:
-                build_cmd.append("--no-deps")
-            build_cmd.append(
+                build_cmd += ["--no-deps"]
+            build_cmd += [
                 "-w",
                 project_wheel_output_dir,  # Output directory
-            )
+            ]
             try:
                 run_command(build_cmd, cwd=project_build_dir, env=build_env)
                 found_wheels = [
