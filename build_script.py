@@ -123,7 +123,6 @@ def main():
         name = project["name"]
         repo_url = project["repo_url"]
         repo_ref = project.get("repo_ref")  # Optional
-        no_deps = project.get("no_deps", False)
         build_command_override = project.get("build_command")
         project_deps = project.get("dependencies", [])
         system_deps = project.get("system_dependencies", [])  # System packages
@@ -233,7 +232,7 @@ def main():
                 "--outdir",
                 project_wheel_output_dir,  # Output directory
             ]
-            if no_deps or force_no_isolation:
+            if force_no_isolation:
                 build_cmd += ["--no-isolation"]
             try:
                 run_command(build_cmd, cwd=project_build_dir, env=build_env)
