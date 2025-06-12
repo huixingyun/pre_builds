@@ -16,6 +16,12 @@ projects:
     repo_ref: main # Branch, tag, or commit hash (optional, defaults to clone default branch)
     # build_command: "python setup.py bdist_wheel --custom-flag" # Optional custom build command
 
+  - name: llama-cpp-python
+    repo_url: https://github.com/abetlen/llama-cpp-python.git
+    repo_ref: v0.3.9
+    build_env:
+      CMAKE_ARGS: -DGGML_CUDA_FORCE_MMQ=ON -DGGML_CUDA=on -DCMAKE_CUDA_ARCHITECTURES=all
+
   # - name: another_project
   #   repo_url: https://gitlab.com/your_org/another_project.git
   #   repo_ref: v1.2.3
