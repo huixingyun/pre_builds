@@ -19,14 +19,23 @@ projects:
 
   - name: llama-cpp-python
     repo_url: https://github.com/abetlen/llama-cpp-python.git
-    repo_ref: v0.3.9
-    force_no_isolation: true
+    repo_ref: main  # 或者特定的版本标签
+    system_dependencies:
+      - cmake
+      - build-essential
+      - gcc
+      - g++
+      - git
+      - nvidia-cuda-toolkit
     dependencies:
       - scikit-build-core
       - pybind11
-      - ninja  # 更快的构建
+      - ninja
+    force_no_isolation: true  # 重要：需要访问系统 CUDA 库
     build_env:
-      CMAKE_ARGS: -DGGML_CUDA_FORCE_MMQ=ON -DGGML_CUDA=on -DCMAKE_CUDA_ARCHITECTURES=all
+      CMAKE_ARGS: "-DGGML_CUDA=on"
+      FORCE_CMAKE: "1"  # 强制使用 CMake（仓库推荐）
+      VERBOSE: "1"      # 查看详细构建输出
 
   # - name: another_project
   #   repo_url: https://gitlab.com/your_org/another_project.git
