@@ -105,11 +105,13 @@ def main():
     build_root = "/tmp/builds"
     os.makedirs(build_root, exist_ok=True)
 
-    py_executable = f"python{sys.version_info.major}.{sys.version_info.minor}"
-    # if py_executable not found, fall back to 
-    if not shutil.which(py_executable):
-        print(f"Warning: {py_executable} not found, falling back to 'python'")
-        py_executable = "python"
+    # check python version match the config
+    py_version = f"{sys.version_info.major}.{sys.version_info.minor}"
+    if py_version != config["build_target"]["python_version"]:
+        print(f"Error: Python version mismatch. Expected {config['build_target']['python_version']}, got {py_version}")
+        sys.exit(1)
+    print(f"Python version check passed: {py_version}")
+
 
     for project in config.get("projects", []):
         name = project["name"]
@@ -147,7 +149,7 @@ def main():
         # Install project-specific dependencies if specified
         if project_deps:
             print(f"Installing dependencies for {name}: {project_deps}")
-            pip_install_cmd = [py_executable, "-m", "pip", "install"] + project_deps
+            pip_install_cmd = ["python", "-m", "pip", "install"] + project_deps
             try:
                 run_command(pip_install_cmd, cwd=project_build_dir, env=build_env)
             except subprocess.CalledProcessError as e:
@@ -184,7 +186,7 @@ def main():
         else:
             # Standard pip wheel build
             build_cmd = [
-                py_executable,
+                "python",
                 "-m",
                 "pip",
                 "wheel",

@@ -42,13 +42,11 @@ def main():
     base_image = get_pytorch_base_image(config)
     apt_packages = " ".join(config.get('apt_packages', []))
     pip_packages = " ".join(config.get('pip_packages', []))
-    py_ver_major_minor = ".".join(config['build_target']['python_version'].split('.')[:2]) # e.g., "3.10"
 
     substitutions = {
         'BASE_IMAGE': base_image,
         'APT_PACKAGES': apt_packages,
         'PIP_PACKAGES': pip_packages,
-        'PYTHON_VERSION_MAJOR_MINOR': py_ver_major_minor,
     }
 
     # --- Perform substitution ---
