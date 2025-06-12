@@ -169,6 +169,7 @@ def main():
                     )
             except subprocess.CalledProcessError as e:
                 print(f"Warning: Failed to install system dependencies: {e}")
+                sys.exit(1)
 
         # Clean up previous attempt if any
         if os.path.exists(project_build_dir):
@@ -183,7 +184,7 @@ def main():
             run_command(clone_command)
         except subprocess.CalledProcessError as e:
             print(f"Error cloning {name}: {e}. Skipping project.")
-            continue
+            sys.exit(1)
 
         # Install project-specific dependencies if specified
         if project_deps:
@@ -195,7 +196,7 @@ def main():
                 print(
                     f"Error installing dependencies for {name}: {e}. Skipping project."
                 )
-                continue
+                sys.exit(1)
 
         # Build the wheel
         print(f"Building wheel for {name}...")
@@ -220,7 +221,7 @@ def main():
                 print(
                     f"Error running custom build command for {name}: {e}. Skipping project."
                 )
-                continue
+                sys.exit(1)
 
         else:
             # Standard build using python -m build
@@ -243,7 +244,7 @@ def main():
                 ]
             except subprocess.CalledProcessError as e:
                 print(f"Error building wheel for {name}: {e}. Skipping project.")
-                continue
+                sys.exit(1)
 
         # Move wheel(s) to final destination
         if not found_wheels:

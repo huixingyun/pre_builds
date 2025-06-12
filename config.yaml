@@ -15,6 +15,8 @@ projects:
     repo_url: https://github.com/kenshi84/GroundingDINO.git
     repo_ref: main # Branch, tag, or commit hash (optional, defaults to clone default branch)
     force_no_isolation: true
+    build_env:
+      TORCH_CUDA_ARCH_LIST: 8.9;9.0;9.0a
     # build_command: "python setup.py bdist_wheel --custom-flag" # Optional custom build command
 
   - name: llama-cpp-python
@@ -46,6 +48,7 @@ pytorch_base_images:
 apt_packages:
   - git
   - build-essential
+  - g++
   - cmake
   # Add other common dependencies here
 
