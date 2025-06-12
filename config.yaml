@@ -53,4 +53,5 @@ apt_packages:
 pip_packages:
   - setuptools
   - wheel
+  - build
   - PyYAML # Needed by build_script.py to parse config

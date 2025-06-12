@@ -191,20 +191,17 @@ def main():
                 continue
 
         else:
-            # Standard pip wheel build
+            # Standard build using python -m build
             build_cmd = [
                 py_executable,
                 "-m",
-                "pip",
-                "wheel",
-                ".",
-            ]
-            if no_deps:
-                build_cmd += ["--no-deps"]
-            build_cmd += [
-                "-w",
+                "build",
+                "--wheel",
+                "--outdir",
                 project_wheel_output_dir,  # Output directory
             ]
+            if no_deps:
+                build_cmd += ["--no-isolation"]
             try:
                 run_command(build_cmd, cwd=project_build_dir, env=build_env)
                 found_wheels = [
