@@ -106,6 +106,10 @@ def main():
     os.makedirs(build_root, exist_ok=True)
 
     py_executable = f"python{sys.version_info.major}.{sys.version_info.minor}"
+    # if py_executable not found, fall back to 
+    if not shutil.which(py_executable):
+        print(f"Warning: {py_executable} not found, falling back to 'python'")
+        py_executable = "python"
 
     for project in config.get("projects", []):
         name = project["name"]
