@@ -176,7 +176,7 @@ def main():
             shutil.rmtree(project_build_dir)
 
         # Clone repository
-        clone_command = ["git", "clone", "--depth", "1"]
+        clone_command = ["git", "clone", "--depth", "1", "--recursive"]
         if repo_ref:
             clone_command.extend(["--branch", repo_ref])
         clone_command.extend([repo_url, project_build_dir])

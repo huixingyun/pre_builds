@@ -19,7 +19,7 @@ projects:
 
   - name: llama-cpp-python
     repo_url: https://github.com/abetlen/llama-cpp-python.git
-    repo_ref: v0.3.5  # 或者特定的版本标签
+    repo_ref: v0.3.9  # 或者特定的版本标签
     force_no_isolation: false  # 重要：需要访问系统 CUDA 库
     build_env:
       CMAKE_ARGS: "-DGGML_CUDA=on"
