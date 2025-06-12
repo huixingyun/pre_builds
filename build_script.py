@@ -110,10 +110,14 @@ def main():
     # check python version match the config
     py_version = f"{sys.version_info.major}.{sys.version_info.minor}"
     if py_version != config["build_target"]["python_version"]:
-        print(f"Error: Python version mismatch. Expected {config['build_target']['python_version']}, got {py_version}")
+        print(
+            f"Error: Python version mismatch. Expected {config['build_target']['python_version']}, got {py_version}"
+        )
         sys.exit(1)
     print(f"Python version check passed: {py_version}")
 
+    # Use the current Python executable path to ensure compatibility
+    py_executable = sys.executable
 
     for project in config.get("projects", []):
         name = project["name"]
@@ -151,7 +155,7 @@ def main():
         # Install project-specific dependencies if specified
         if project_deps:
             print(f"Installing dependencies for {name}: {project_deps}")
-            pip_install_cmd = ["python", "-m", "pip", "install"] + project_deps
+            pip_install_cmd = [py_executable, "-m", "pip", "install"] + project_deps
             try:
                 run_command(pip_install_cmd, cwd=project_build_dir, env=build_env)
             except subprocess.CalledProcessError as e:
@@ -188,7 +192,7 @@ def main():
         else:
             # Standard pip wheel build
             build_cmd = [
-                "python",
+                py_executable,
                 "-m",
                 "pip",
                 "wheel",
