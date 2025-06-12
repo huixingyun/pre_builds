@@ -21,6 +21,10 @@ projects:
     repo_url: https://github.com/abetlen/llama-cpp-python.git
     repo_ref: v0.3.9
     force_no_isolation: true
+    dependencies:
+      - scikit-build-core
+      - pybind11
+      - ninja  # 更快的构建
     build_env:
       CMAKE_ARGS: -DGGML_CUDA_FORCE_MMQ=ON -DGGML_CUDA=on -DCMAKE_CUDA_ARCHITECTURES=all
 
