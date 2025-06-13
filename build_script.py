@@ -15,18 +15,16 @@ def run_command(command, cwd=None, env=None):
     """Executes a shell command and prints output."""
     print(f"Running command: {' '.join(command)}" + (f" in {cwd}" if cwd else ""))
     # Merge with current environment if custom env is provided
+    merged_env = os.environ.copy()
+    merged_env["PYTHONUNBUFFERED"] = "1"
     if env:
-        merged_env = os.environ.copy()
         merged_env.update(env)
-        env = merged_env
-    else:
-        env = os.environ.copy()
     process = subprocess.Popen(
         command,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         cwd=cwd,
-        env=env,
+        env=merged_env,
         text=True,
         bufsize=1,
     )
