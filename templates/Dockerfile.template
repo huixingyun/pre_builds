@@ -18,4 +18,4 @@ ENV CUDA_HOME=/usr/local/cuda
 
 COPY build_script.py .
 
-CMD ["/workspace/build_script.py", "--config", "/workspace/config.yaml"]
+CMD ["python", "/workspace/build_script.py", "--config", "/workspace/config.yaml"]
