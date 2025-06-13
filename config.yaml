@@ -10,6 +10,12 @@ build_target:
 
 # List of projects to build
 projects:
+
+  - name: SageAttention
+    repo_url: https://github.com/thu-ml/SageAttention.git
+    repo_ref: main
+    force_no_isolation: true
+
   - name: GroundingDINO
     # https://github.com/IDEA-Research/GroundingDINO.git
     repo_url: https://github.com/kenshi84/GroundingDINO.git
@@ -21,7 +27,7 @@ projects:
 
   - name: llama-cpp-python
     repo_url: https://github.com/abetlen/llama-cpp-python.git
-    repo_ref: v0.3.9  # 或者特定的版本标签
+    repo_ref: v0.3.9
     build_env:
       CMAKE_ARGS: "-DGGML_CUDA=on"
 
@@ -55,7 +61,9 @@ pytorch_base_images:
 apt_packages:
   - git
   - build-essential
-  - g++
+  - ninja-build
+  - g++-11
+  - gcc-11
   - cmake
   # Add other common dependencies here
 

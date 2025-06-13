@@ -13,11 +13,9 @@ RUN python -m pip install --no-cache-dir --upgrade pip && \
     python -m pip install --no-cache-dir \
     {PIP_PACKAGES}
 
-# Create workspace and copy necessary scripts/configs
 WORKDIR /workspace
-COPY config.yaml .
-COPY build_script.py .
-
 ENV CUDA_HOME=/usr/local/cuda
+
+COPY build_script.py .
 
 CMD ["/workspace/build_script.py", "--config", "/workspace/config.yaml"]
