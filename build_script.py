@@ -19,6 +19,8 @@ def run_command(command, cwd=None, env=None):
         merged_env = os.environ.copy()
         merged_env.update(env)
         env = merged_env
+    else:
+        env = os.environ.copy()
     process = subprocess.Popen(
         command,
         stdout=subprocess.PIPE,
