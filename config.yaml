@@ -11,6 +11,11 @@ build_target:
 # List of projects to build
 projects:
 
+  - name: flash-attention
+    repo_url: https://github.com/Dao-AILab/flash-attention.git
+    repo_ref: v2.7.4.post1
+    force_no_isolation: true
+
   - name: SageAttention
     repo_url: https://github.com/thu-ml/SageAttention.git
     repo_ref: main
